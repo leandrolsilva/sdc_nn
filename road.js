@@ -5,6 +5,7 @@ class Road{
         this.width=width;
         this.height=height;
         this.laneCount=laneCount;
+        this.laneWidth=width/laneCount;
 
         this.left=x-width/2+5;
         this.right=x+width/2-5;
@@ -18,15 +19,24 @@ class Road{
         ctx.lineWidth = 5;
         ctx.strokeStyle="white";
         
-        ctx.beginPath();
-        ctx.moveTo(this.left, this.top);
-        ctx.lineTo(this.left, this.bottom);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(this.right, this.top);
-        ctx.lineTo(this.right, this.bottom);
-        ctx.stroke();
+        for(let i=0;i<=this.laneCount;i++){
+            const x=lerp(
+                this.left
+                , this.right
+                , i/this.laneCount
+            );
+            const line_dash=(i>0 && i<this.laneCount ? [20,20]: [])
+            ctx.setLineDash(line_dash);
+            ctx.beginPath();
+            ctx.moveTo(x, this.top);
+            ctx.lineTo(x, this.bottom);
+            ctx.stroke();
+            
+        }
     }
 
+}
+
+function lerp(A, B, t){
+    return A+(B-A)*t;
 }
