@@ -3,9 +3,13 @@ canvas.height = window.innerHeight;
 canvas.width = 250;
 
 const ctx = canvas.getContext("2d");
-const road = new Road(canvas.width/2, canvas.width);
 
-const carX=canvas.width/road.laneCount;
+const numLanes =  Math.floor(Math.random() * 4 + 1);
+const road = new Road(canvas.width/2, canvas.width*0.9,numLanes);
+
+const startLane =  Math.floor(Math.random() * numLanes);
+const carX=road.getLaneX(startLane);
+console.log([numLanes, startLane]);
 const carY=canvas.height*0.7;
 
 const car = new Car(carX,carY,30,50);

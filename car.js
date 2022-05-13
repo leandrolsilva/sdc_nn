@@ -44,17 +44,17 @@ class Car {
         }
         
         const abs_speed = Math.abs(this.speed);
-        const rev_abs_multiplier = abs_speed/this.speed;
+        const rev_abs_multiplier = this.speed==0?1:abs_speed/this.speed;
         const max_speed = this.maxSpeed * (rev_abs_multiplier < 0 ? this.maxRevSpeedProportion : 1 )
         
         if (this.controls.left){
             this.angle+=this.turnAngle*rev_abs_multiplier;
         }
-        if (this.controls.right){
+        if (this.controls.right && this.abs_speed!=0){
             this.angle-=this.turnAngle*rev_abs_multiplier;
         }
         
-        if(abs_speed>max_speed) {
+        if(abs_speed>max_speed && this.abs_speed!=0) {
             this.speed=max_speed * rev_abs_multiplier;
         }
         if(abs_speed>0) {
@@ -63,6 +63,7 @@ class Car {
         
         this.x-=Math.sin(this.angle)*this.speed;
         this.y-=Math.cos(this.angle)*this.speed;
+        //console.table(x,y);
     }
 
 }
