@@ -5,6 +5,7 @@ class Car {
         this.width=width;
         this.height=height;
         
+        this.isMoving = false;
         this.speed = 0;
         this.acceleration  = 0.2;
         this.maxSpeed = 3;
@@ -36,6 +37,9 @@ class Car {
     }
 
     update(){
+        //if (!this.controls.forward && !this.controls.reverse && !this.controls.left && ! this.controls.right)
+
+
         if (this.controls.forward){
             this.speed+= this.acceleration;
         }
@@ -43,26 +47,28 @@ class Car {
             this.speed-=this.acceleration;
         }
         
-        const abs_speed = Math.abs(this.speed);
-        const rev_abs_multiplier = this.speed==0?1:abs_speed/this.speed;
-        const max_speed = this.maxSpeed * (rev_abs_multiplier < 0 ? this.maxRevSpeedProportion : 1 )
-        
+        const abs_speed = Math.abs(this.speed) > this.friction ? Math.abs(this.speed) : 0;
+        this.isMoving = abs_speed != 0;
+        const speed_sign = this.speed==0?1:abs_speed/this.speed;
+        const max_speed = this.maxSpeed * (speed_sign < 0 ? this.maxRevSpeedProportion : 1 )
+        const turn_delta = this.turnAngle*speed_sign;
+
         if (this.controls.left){
-            this.angle+=this.turnAngle*rev_abs_multiplier;
+            this.angle+= this.isMoving ? turn_delta : 0;
         }
         if (this.controls.right && this.abs_speed!=0){
-            this.angle-=this.turnAngle*rev_abs_multiplier;
+            this.angle-= this.isMoving ? turn_delta : 0;
         }
         
-        if(abs_speed>max_speed && this.abs_speed!=0) {
-            this.speed=max_speed * rev_abs_multiplier;
+        if(this.isMoving && abs_speed>max_speed /*&& this.abs_speed!=0*/) {
+            this.speed=max_speed * speed_sign;
         }
-        if(abs_speed>0) {
-            this.speed=this.speed - (rev_abs_multiplier * this.friction);
+        if(this.isMoving) {
+            this.speed-=(speed_sign * this.friction);
+            this.x-=Math.sin(this.angle)*this.speed;
+            this.y-=Math.cos(this.angle)*this.speed;
         }
         
-        this.x-=Math.sin(this.angle)*this.speed;
-        this.y-=Math.cos(this.angle)*this.speed;
         //console.table(x,y);
     }
 
