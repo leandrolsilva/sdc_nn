@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SDC FreecodeCamp</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="sdc-canvas"></canvas>
-    <textarea name="" id= rows="8" cols="40"></textarea>    
+    <div id="controls">
+     <div id="control-row">
+      <button type="button">up-left</button>
+      <button type="button">up</button>
+      <button type="button">up-right</button>
+     </div>
+     <div id="linha">
+      <button type="button">left</button>
+      <span>center</span>
+      <button type="button">right</button>
+      </div>
+     <div id="linha">
+      <button type="button">down-left</button>
+      <button type="button">down</button>
+      <button type="button">down-right</button>
+     </div>
+    </div>
     <script src="sensor.js"></script>
     <script src="road.js"></script>
     <script src="controls.js"></script>

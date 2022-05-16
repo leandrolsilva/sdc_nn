@@ -1,4 +1,5 @@
 body {
+    display: inline-block;
     margin: 0;
     background: darkgray;
     overflow: hidden;
@@ -6,5 +7,13 @@ body {
 }
 #sdc-canvas {
     background: lightgray;
-    
+    height: 90%;
+    margin: 2;
+    border-color: red;
+}
+#controls{
+  height: 10%;
+}
+#control-row {
+  display: inline-block;
 }

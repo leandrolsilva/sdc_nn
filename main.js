@@ -1,5 +1,5 @@
 const canvas=document.getElementById("sdc-canvas");
-canvas.height = window.innerHeight;
+canvas.height = window.innerHeight*0.5;
 //canvas.width = 250;
 
 const ctx = canvas.getContext("2d");
