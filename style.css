@@ -2,9 +2,24 @@ body {
     margin: 0;
     background: darkgray;
     overflow: hidden;
-    text-align: center;
+}
+#contents {
+    display: flex;
+    align-items: center;
 }
 #sdc-canvas {
     background: lightgray;
-    
+    border-color: red;
+}
+#controls{
+    float: right;
+    align-content: center;
+    height: 100%;
+}
+#control-row {
+    display: block;
+}
+#control-row button,
+#control-row span {
+    width: 100px;
 }
