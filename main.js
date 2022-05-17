@@ -31,42 +31,13 @@ animate();
 function animate(){
     //road.update();
     car.update();
-      canvas.height = window.innerHeight;
-      ctx.save();
-      ctx.translate(0,-car.y + canvas.height * fixedCameraPercent);
-      
-      road.draw(ctx);
-      car.draw(ctx);
-      
-      ctx.restore();
-      requestAnimationFrame(animate);
+    canvas.height = window.innerHeight;
+    ctx.save();
+    ctx.translate(0,-car.y + canvas.height * fixedCameraPercent);
+    
+    road.draw(ctx);
+    car.draw(ctx);
+    
+    ctx.restore();
+    requestAnimationFrame(animate);
 }
-
-//const body = document.querySelector('body');
-
-function kdown(key){
-    window.dispatchEvent(new KeyboardEvent('keydown', {'key':key} ));
-}
-
-// function kup(key){
-//     body.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':key} ));
-// }
-
-var mouseIsDown = false;
-
-window.addEventListener('mousedown', function() {
-  mouseIsDown = true;
-//   setTimeout(function() {
-//     if(mouseIsDown) {
-//       // mouse was held down for > 2 seconds
-//     }
-//   }, 2000);
-});
-
-window.addEventListener('mouseup', function() {
-  mouseIsDown = false;
-  window.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'ArrowUp'} ));
-  window.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'ArrowDown'} ));
-  window.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'ArrowLeft'} ));
-  window.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'ArrowRight'} ));
-});
