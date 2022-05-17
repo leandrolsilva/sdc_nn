@@ -4,13 +4,14 @@ class Controls{
         this.left=false;
         this.right=false;
         this.reverse=false;
+        this.mousedown=false;
 
         this.addListeners();
     }
     addListeners(){
         document.onmousedown=(event)=>{
-            if(event.target.type=='button'){
-                
+            if(event.target.type=='button' && !this.mousedown){
+                this.mousedown=true;
                 let fw = false;
                 let rv = false;
                 let le = false;
@@ -37,6 +38,7 @@ class Controls{
                 this.reverse=false;
                 this.left=false;
                 this.right=false;
+                this.mousedown=false;
             }
         }
 
