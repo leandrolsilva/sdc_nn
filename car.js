@@ -4,6 +4,7 @@ class Car {
         this.y=y;
         this.width=width;
         this.height=height;
+        this.hasSensors=with_sensors;
         
         this.isMoving = false;
         this.speed = 0;
@@ -16,6 +17,8 @@ class Car {
         this.turnAngle=0.03;
 
         this.controls=new Controls();
+        this.sensor=null;
+        if (this.hasSensors) this.sensor = new Sensor(this,3);
         //console.table(this);
     }
 
@@ -32,6 +35,7 @@ class Car {
             this.height
         );
         ctx.fill();
+        if (this.hasSensors) this.sensor.draw(ctx);
 
         ctx.restore();
     }
@@ -51,15 +55,19 @@ class Car {
         this.isMoving = abs_speed != 0;
         const speed_sign = this.speed==0?1:abs_speed/this.speed;
         const max_speed = this.maxSpeed * (speed_sign < 0 ? this.maxRevSpeedProportion : 1 )
-        const turn_delta = this.turnAngle*speed_sign;
 
-        if (this.controls.left){
-            this.angle+= this.isMoving ? turn_delta : 0;
-        }
-        if (this.controls.right && this.abs_speed!=0){
-            this.angle-= this.isMoving ? turn_delta : 0;
-        }
-        
+        //const turn_delta = this.turnAngle*speed_sign;
+        //if (this.controls.left){
+        //    this.angle+= this.isMoving ? turn_delta: 0;
+        //}
+        //if (this.controls.right){
+        //    this.angle-=  = this.isMoving ? 1 : 0;
+        //}
+        //this.angle+= this.isMoving ? turn_delta : 0;
+
+        let turn_delta_multiplier = this.isMoving ? (this.controls.left ? 1 : (this.controls.right ? -1 : 0)):0;
+        this.angle+= this.turnAngle*speed_sign*turn_delta_multiplier;
+
         if(this.isMoving && abs_speed>max_speed /*&& this.abs_speed!=0*/) {
             this.speed=max_speed * speed_sign;
         }
@@ -69,6 +77,7 @@ class Car {
             this.y-=Math.cos(this.angle)*this.speed;
         }
         
+        if (this.hasSensors) this.sensor.update();
         //console.table(x,y);
     }
 
