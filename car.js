@@ -31,8 +31,16 @@ class Car {
             this.height
         );
         ctx.fill();
-
         ctx.restore();
+        
+        //testing normal to a line
+        ctx.lineWidth = 3;
+        ctx.strokeStyle="yellow";
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(this.x-150,this.y-150);
+        ctx.stroke();
+        
     }
 
     update(){
