@@ -32,14 +32,25 @@ class Car {
         );
         ctx.fill();
         ctx.restore();
-        
+        const raylength=30;
+        const points=[this.x,this.y, this.x-raylength, this.y-raylength];
         //testing normal to a line
         ctx.lineWidth = 3;
         ctx.strokeStyle="yellow";
         ctx.beginPath();
-        ctx.moveTo(this.x,this.y);
-        ctx.lineTo(this.x-150,this.y-150);
+        ctx.moveTo(points[0],points[1]);
+        ctx.lineTo(points[2],points[3]);
         ctx.stroke();
+        
+        ctx.save();
+        //ctx.translate(points[0]+(points[2]-points[0])/2,points[1]+(points[3]-points[1])/2);
+        ctx.translate(points[0]-(-points[2]+points[0])/2,points[1]-(-points[3]+points[1])/2);
+        ctx.strokeStyle="red";
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(-points[2]+points[0],points[3]-points[1]);
+        ctx.stroke();
+        ctx.restore();
         
     }
 
